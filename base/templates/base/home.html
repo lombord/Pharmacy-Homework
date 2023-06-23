@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+  Home
+{% endblock title %}
+{% block content %}
+  <main>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input type="number" name="distance" placeholder="distance">
+      <div>
+        <label for="medicine">Select Medicine</label>
+        <select name="pk" id="medicine">
+          {% for med in meds %}<option value="{{ med.pk }}">{{ med }}</option>{% endfor %}
+        </select>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <section class="result">
+      {% if pharmacies|length %}
+        <hr>
+        {% for pharmacy in pharmacies %}
+          <div>{{ pharmacy }}</div>
+          <hr>
+        {% endfor %}
+        <h2>Best offer:</h2>
+        <div>{{ pharmacies.first }}</div>
+      {% endif %}
+    </section>
+  </main>
+{% endblock content %}
